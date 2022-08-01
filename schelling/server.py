@@ -1,6 +1,7 @@
 from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.modules import CanvasGrid, ChartModule, TextElement
 from mesa.visualization.UserParam import UserSettableParameter
+from traceback2 import print_tb
 
 from model import Schelling
 
@@ -15,6 +16,19 @@ class HappyElement(TextElement):
 
     def render(self, model):
         return "Happy agents: " + str(model.happy)
+
+
+class SickElement(TextElement):
+    """
+    Display a text count of how many sick agents there are.
+    """
+
+    def __init__(self):
+        pass
+
+    def render(self, model):
+        return "Sick agents: " + str(model.sick_count)
+
 
 
 def schelling_draw(agent):
@@ -35,8 +49,13 @@ def schelling_draw(agent):
 
 
 happy_element = HappyElement()
+print(happy_element)
 canvas_element = CanvasGrid(schelling_draw, 20, 20, 500, 500)
 happy_chart = ChartModule([{"Label": "happy", "Color": "Black"}])
+
+sick_element = SickElement()
+print(sick_element)
+sick_chart = ChartModule([{"Label": "sick", "Color": "Red"}])
 
 model_params = {
     "height": 20,
@@ -47,8 +66,9 @@ model_params = {
     ),
     "homophily": UserSettableParameter("slider", "Homophily", 3, 0, 8, 1),
     "disease_probability": UserSettableParameter("slider", "Disease probability", 50, 0, 100, 1),
+    "spread_probability": UserSettableParameter("slider", "Spread probability", 50, 0, 100, 1),
 }
 
 server = ModularServer(
-    Schelling, [canvas_element, happy_element, happy_chart], "Schelling", model_params
+    Schelling, [canvas_element, happy_element, happy_chart, sick_element, sick_chart], "Schelling", model_params
 )
