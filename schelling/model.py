@@ -27,6 +27,7 @@ class SchellingAgent(Agent):
 
     def step(self):
         similar = 0
+        sick_neighbor =  False
         spread_disease = [True, False]
         weights = [self.spread_probability, 1-self.spread_probability]
 
@@ -43,6 +44,7 @@ class SchellingAgent(Agent):
         for neighbor in self.model.grid.neighbor_iter(self.pos):
             if neighbor.sick['status'][0]:
                 similar = 0
+                sick_neighbor = True
                 break
 
         if self.sick['status'][0]:
@@ -56,7 +58,7 @@ class SchellingAgent(Agent):
                 self.model.sick_count -= 1
 
         # If unhappy, move:
-        if similar < self.model.homophily:
+        if similar < self.model.homophily or sick_neighbor:
             self.model.grid.move_to_empty(self)
         else:
             self.model.happy += 1
@@ -84,16 +86,14 @@ class Schelling(Model):
 
         self.happy = 0
         self.datacollector = DataCollector(
-            {"happy": "happy"},  # Model-level count of happy agents
+            model_reporters=
+            {"happy": "happy",
+            "sick": "sick_count"},  # Model-level count of happy agents
             # For testing purposes, agent's individual x and y
-            {"x": lambda a: a.pos[0], "y": lambda a: a.pos[1]},
+            #{"x": lambda a: a.pos[0], "y": lambda a: a.pos[1]},
+                        
         )
 
-        self.sickcollector = DataCollector(
-            {"sick_count": "sick_count"},  # Model-level count of happy agents
-            # For testing purposes, agent's individual x and y
-            {"x": lambda a: a.pos[0], "y": lambda a: a.pos[1]},
-        )
 
         sick = [True, False]
         weights = [self.disease_probability, 1 - self.disease_probability]

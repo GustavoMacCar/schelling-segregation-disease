@@ -8,7 +8,7 @@ from model import Schelling
 
 class HappyElement(TextElement):
     """
-    Display a text count of how many happy agents there are.
+    Display a text count of how many sick agents there are.
     """
 
     def __init__(self):
@@ -49,13 +49,10 @@ def schelling_draw(agent):
 
 
 happy_element = HappyElement()
-print(happy_element)
-canvas_element = CanvasGrid(schelling_draw, 20, 20, 500, 500)
-happy_chart = ChartModule([{"Label": "happy", "Color": "Black"}])
-
 sick_element = SickElement()
-print(sick_element)
-sick_chart = ChartModule([{"Label": "sick", "Color": "Red"}])
+canvas_element = CanvasGrid(schelling_draw, 20, 20, 500, 500)
+happy_chart = ChartModule([{"Label": "happy", "Color": "Black"}, {"Label": "sick", "Color": "Red"}])
+
 
 model_params = {
     "height": 20,
@@ -70,5 +67,5 @@ model_params = {
 }
 
 server = ModularServer(
-    Schelling, [canvas_element, happy_element, happy_chart, sick_element, sick_chart], "Schelling", model_params
+    Schelling, [canvas_element, happy_element, sick_element, happy_chart], "Schelling", model_params
 )
