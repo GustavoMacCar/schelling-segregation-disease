@@ -10,7 +10,7 @@ O modelo aqui apresentado é bastante semelhante ao modelo presente na pasta de 
 
 A inspiração para essa modificação no modelo surgiu em decorrência das várias menções à covid encontradas na pequisa bibliogŕafica. A simulação tem como objetivo observar como a presença de pessoas contaminadas com uma doença contagiosa afeta o bem estar geral de uma comunidade de um ponto de vista social e como isso pode modificar a tendência que indivíduos têm de formarem grupos conforme o modelo de Schelling.
 
-Podemos formular a hipótese da seguinte maneira: A presença de uma doença contagiosa em uma comunidade, de modo que tal doença é capaz de afetar a percepção social que os indivíduos possuem de seus portadores, afetará a tendência presente no modelo para a formação de grupos?
+Podemos formular a hipótese da seguinte maneira: Uma doença contagiosa é capaz de alterar a tendência de formação de grupos proposta no Modelo de Schelling e favorece o isolamento dos agentes.
 
 ## Justificativa para as mudanças que você fez, em relação ao código original
 
