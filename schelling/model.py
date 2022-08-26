@@ -80,6 +80,7 @@ class Schelling(Model):
         self.disease_probability = disease_probability / 100
         self.spread_probability = spread_probability / 100
         self.sick_count = 0
+        self.running = True
 
         self.schedule = RandomActivation(self)
         self.grid = SingleGrid(width, height, torus=True)
